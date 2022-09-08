@@ -17,4 +17,3 @@ remotes::install_github("ccps-research-eval/soltools")
 
 # Usage
 
-TODO

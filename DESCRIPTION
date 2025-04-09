@@ -5,7 +5,7 @@ Authors@R:
     person("Eric", "Ekholm", , "eric.ekholm@gmail.com", role = c("aut", "cre"))
 Description: A consistent set of tools for ingesting, cleaning, and analyzing data in Virginia SOL extracts
 License: MIT + file LICENSE
-URL: https://github.com/ccps-research-eval/soltools
+URL: https://github.com/ccps-research-eval/soltools, https://ccps-research-eval.github.io/soltools/
 BugReports: https://github.com/ccps-research-eval/soltools/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

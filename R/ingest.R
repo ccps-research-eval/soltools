@@ -19,5 +19,7 @@ ingest_student_data_extract <- function(path, ...) {
 
     tmp <- janitor::clean_names(tmp)
 
+    tmp$test_scaled_score <- as.numeric(tmp$test_scaled_score)
+
     return(tmp)
 }

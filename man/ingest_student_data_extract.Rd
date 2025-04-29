@@ -15,5 +15,11 @@ ingest_student_data_extract(path, ...)
 A dataframe containing the ingested data.
 }
 \description{
-Ingest an SOL student data extract (csv file). This should be the exact file downloaded from Pearson
+Ingest an SOL student data extract (csv file). This should be the exact file downloaded from Pearson. This function reads the data in and performs some light cleaning.
+}
+\examples{
+\dontrun{
+p <- "path/to/my/data.csv"
+df <- ingest_student_data_extract(p)
+}
 }

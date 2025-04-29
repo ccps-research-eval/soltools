@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter.R
 \name{filter_test_performance}
 \alias{filter_test_performance}
-\title{Title}
+\title{Filter Test Performance}
 \usage{
 filter_test_performance(x, type = "best")
 }
@@ -15,5 +15,13 @@ filter_test_performance(x, type = "best")
 a dataframe with 1 row per student per test
 }
 \description{
-insert description
+Filter a student data extract to include only students' 'best' or 'first' SOL tests.
+}
+\examples{
+\dontrun{
+p <- "path/to/my/data.csv"
+df <- ingest_student_data_extract(p)
+best_tests <- filter_test_performance(df, type = "best")
+first_tests <- filter_test_performance(df, type = "first")
+}
 }

@@ -1,6 +1,6 @@
-#' Title
+#' Filter Test Performance
 #'
-#' @description insert description
+#' @description Filter a student data extract to include only students' 'best' or 'first' SOL tests.
 #'
 #' @param x A dataframe, ideally one created by [ingest_student_data_extract()]
 #' @param type Character. Either "best" (the default) or "first." "best" will retain only each student's best score on a given test, whereas "first" will retain each student's chronological first score on a given test.
@@ -9,7 +9,12 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examples \dontrun{
+#' p <- "path/to/my/data.csv"
+#' df <- ingest_student_data_extract(p)
+#' best_tests <- filter_test_performance(df, type = "best")
+#' first_tests <- filter_test_performance(df, type = "first")
+#' }
 #' @md
 filter_test_performance <- function(x, type = "best") {
     # checks
@@ -25,7 +30,8 @@ filter_test_performance <- function(x, type = "best") {
     }
 }
 
-# utility functions
+# utility functions ------------------------
+
 filter_best_scores <- function(x) {
     # TODO -- avoid hard-coding column names?
     tmp <- dplyr::group_by(x, state_testing_identifier_sti, test_name)

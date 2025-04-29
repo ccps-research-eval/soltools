@@ -1,6 +1,6 @@
 #' Ingest Student Data Extract
 #'
-#' @description Ingest an SOL student data extract (csv file). This should be the exact file downloaded from Pearson
+#' @description Ingest an SOL student data extract (csv file). This should be the exact file downloaded from Pearson. This function reads the data in and performs some light cleaning.
 #'
 #' @param path Character. The path to the file to be ingested.
 #' @param ... Additional arguments passed to [readr::read_csv()]
@@ -9,7 +9,10 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examples \dontrun{
+#' p <- "path/to/my/data.csv"
+#' df <- ingest_student_data_extract(p)
+#' }
 #' @md
 ingest_student_data_extract <- function(path, ...) {
     # check path

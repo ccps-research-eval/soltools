@@ -16,6 +16,7 @@ Config/testthat/edition: 3
 Imports: 
     dplyr,
     janitor,
-    readr
+    readr,
+    rlang
 Depends: 
     R (>= 4.0)

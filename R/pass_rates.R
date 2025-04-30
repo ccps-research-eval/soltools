@@ -6,7 +6,7 @@
 #' @param group_vars A character vector of column names to group by.
 #' @param drop_parent_requested Logical. If `TRUE` (the default), drop any tests that were parent requested.
 #'
-#' @return
+#' @return A summarized dataframe with pass rates for each group
 #'
 #' @export
 #'
@@ -16,28 +16,15 @@
 #' pr <- calc_pass_rate(x, group_vars = c("school_name", "test_name"))
 #' }
 #' @md
-calc_pass_rate <- function(x, group_vars, drop_parent_requested = TRUE) {
+summarize_pass_rate <- function(x, group_vars, drop_parent_requested = TRUE) {
     stopifnot(
-        is.data.frame(x),
-        is.character(group_vars),
-        is.logical(drop_parent_requested)
+        "`x` must be a data frrame" = is.data.frame(x),
+        "`group_vars` must be a character vector" = is.character(group_vars),
+        "`drop_parent_requested` must be a logical" = is.logical(drop_parent_requested)
     )
 
     # filter out exclusions
-    # note -- if we select the student's 'best' or 'first' tests, we don't need to apply any of the rules for retests
-    tmp <- x |>
-        dplyr::filter(
-            grade != "TT",
-            performance_level %in% c(1, 2, 3, 4, 5, 8),
-            is.na(recently_arrived_el)
-        )
-
-    tmp <- if (drop_parent_requested) {
-        tmp |>
-            dplyr::filter(tmp, is.na(parent_requested))
-    } else {
-        tmp
-    }
+    tmp <- filter_exclusions(x, drop_parent_requested)
 
     tmp <- tmp |>
         dplyr::mutate(
@@ -55,4 +42,92 @@ calc_pass_rate <- function(x, group_vars, drop_parent_requested = TRUE) {
         )
 
     return(ret)
+}
+
+#' Summarize Performance Levels
+#'
+#' @description Summarizes the distribution of performance levels within groups in a student data extract.
+#'   Calculates the count and percentage of students at each performance level for each group.
+#'
+#' @param x A data frame containing student data, ideally from [ingest_student_data_extract()].
+#' @param group_vars A character vector specifying the column names to group the data by (e.g., "school_name", "test_name").
+#' @param drop_parent_requested Logical. If `TRUE` (the default), exclude tests marked as parent-requested.
+#' @param convert_performance_levels Logical. If `TRUE` (the default), convert numeric performance level codes to text labels using [recode_performance_levels()].
+#'
+#' @return A data frame summarizing performance levels.  It includes the grouping variables,
+#'   `performance_level` (either numeric or text), `n_performance_level` (the count of students
+#'   at that level within the group), `n_total` (the total number of students in the group),
+#'   and `pct` (the percentage of students at that level within the group).
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # Example usage with a hypothetical 'student_data' data frame:
+#' summary_df <- summarize_performance_levels(
+#'     student_data,
+#'     group_vars = c("school_name", "test_name")
+#' )
+#'
+#' # Example with numeric performance levels:
+#' summary_df_numeric <- summarize_performance_levels(
+#'     student_data,
+#'     group_vars = "school_name",
+#'     convert_performance_levels = FALSE
+#' )
+#' }
+#' @md
+summarize_performance_levels <- function(x, group_vars, drop_parent_requested = TRUE, convert_performance_levels = TRUE) {
+    stopifnot(
+        "`x` must be a data frrame" = is.data.frame(x),
+        "`group_vars` must be a character vector" = is.character(group_vars),
+        "`drop_parent_requested` must be a logical" = is.logical(drop_parent_requested),
+        "`convert_performance_levels` must be a logical" = is.logical(convert_performance_levels)
+    )
+
+    # filter out exclusions
+    tmp <- filter_exclusions(x, drop_parent_requested)
+
+    # convert peformance levels to text if specified
+    tmp <- if (convert_performance_levels) {
+        tmp |>
+            dplyr::mutate(
+                performance_level = recode_performance_levels(performance_level)
+            )
+    } else {
+        tmp
+    }
+
+    grouped_df <- tmp |>
+        dplyr::group_by(!!!rlang::syms(group_vars))
+
+    ret <- grouped_df |>
+        dplyr::count(performance_level, name = "n_performance_level") |>
+        dplyr::add_count(wt = n_performance_level, name = "n_total") |>
+        dplyr::mutate(pct = n_performance_level / n_total) |>
+        dplyr::ungroup()
+
+    return(ret)
+}
+
+# utilities ----------------
+# note -- if we select the student's 'best' or 'first' tests, we don't need to apply any of the rules for retests
+filter_exclusions <- function(x, drop_parent_requested) {
+    allow_lvls <- c(1, 2, 3, 4, 5, 8)
+
+    tmp <- x |>
+        dplyr::filter(
+            grade != "TT",
+            performance_level %in% allow_lvls,
+            is.na(recently_arrived_el)
+        )
+
+    tmp <- if (drop_parent_requested) {
+        tmp |>
+            dplyr::filter(is.na(parent_requested))
+    } else {
+        tmp
+    }
+
+    return(tmp)
 }

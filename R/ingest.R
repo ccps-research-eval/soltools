@@ -22,7 +22,10 @@ ingest_student_data_extract <- function(path, ...) {
 
     tmp <- janitor::clean_names(tmp)
 
-    tmp$test_scaled_score <- as.numeric(tmp$test_scaled_score)
+    # ensure these are coded as numeric for later functions
+    num_vars <- c("test_scaled_score", "race", "performance_level", "disability_status", "el_overall_proficiency_level")
+
+    tmp <- dplyr::mutate(tmp, dplyr::across(num_vars, as.numeric))
 
     return(tmp)
 }

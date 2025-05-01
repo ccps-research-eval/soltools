@@ -33,3 +33,13 @@ test_that("filter_test_performance 'best' yields the best score", {
   # hard-coding 500 bc that's what i know the best score is in the demo data
   expect_equal(ret$test_scaled_score, 500)
 })
+
+# testing drop_irw func
+test_that("drop_irw works", {
+  df <- data.frame(
+    test_name = c("Math", "Int Read Write", "Science"),
+    stringsAsFactors = FALSE
+  )
+  expect_equal(nrow(drop_irw(df)), 2)
+  expect_true(!"Int Read Write" %in% drop_irw(df)$test_name)
+})

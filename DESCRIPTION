@@ -17,6 +17,7 @@ Imports:
     dplyr,
     janitor,
     readr,
-    rlang
+    rlang,
+    tools
 Depends: 
     R (>= 4.0)

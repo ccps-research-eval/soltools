@@ -6,7 +6,7 @@
 \usage{
 summarize_performance_levels(
   x,
-  group_vars,
+  group_vars = NULL,
   drop_parent_requested = TRUE,
   convert_performance_levels = TRUE
 )
@@ -14,7 +14,7 @@ summarize_performance_levels(
 \arguments{
 \item{x}{A data frame containing student data, ideally from \code{\link[=ingest_student_data_extract]{ingest_student_data_extract()}}.}
 
-\item{group_vars}{A character vector specifying the column names to group the data by (e.g., "school_name", "test_name").}
+\item{group_vars}{NULL or a character vector specifying the column names to group the data by (e.g., "school_name", "test_name"). If \code{NULL} (the default), no grouping will occur.}
 
 \item{drop_parent_requested}{Logical. If \code{TRUE} (the default), exclude tests marked as parent-requested.}
 

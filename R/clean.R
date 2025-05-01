@@ -16,7 +16,7 @@
 #' @md
 clean_test_names <- function(x) {
     stopifnot(
-        "`x` must be a character" = is.character(x)
+        "`x` must be a character vector" = is.character(x)
     )
 
     # strip out the standards year

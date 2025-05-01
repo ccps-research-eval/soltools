@@ -4,12 +4,12 @@
 \alias{summarize_pass_rate}
 \title{Calculate Pass Rates}
 \usage{
-summarize_pass_rate(x, group_vars, drop_parent_requested = TRUE)
+summarize_pass_rate(x, group_vars = NULL, drop_parent_requested = TRUE)
 }
 \arguments{
 \item{x}{A dataframe containing data from an SOL student data extract. Ideally this will have been read in via \code{\link[=ingest_student_data_extract]{ingest_student_data_extract()}} and preprocessed via \code{\link[=filter_test_performance]{filter_test_performance()}}}
 
-\item{group_vars}{A character vector of column names to group by.}
+\item{group_vars}{NULL or a character vector specifying the column names to group the data by (e.g., "school_name", "test_name"). If \code{NULL} (the default), no grouping will occur.}
 
 \item{drop_parent_requested}{Logical. If \code{TRUE} (the default), drop any tests that were parent requested.}
 }
@@ -23,6 +23,6 @@ Calculate pass rates for a student data extract. This function applies the calcu
 \dontrun{
 x <- ingest_student_data_extract("path/to/data.csv")
 x <- filter_test_performance(x, type = "best")
-pr <- calc_pass_rate(x, group_vars = c("school_name", "test_name"))
+pr <- summarize_pass_rate(x, group_vars = c("school_name", "test_name"))
 }
 }

@@ -4,10 +4,12 @@
 \alias{ingest_student_data_extract}
 \title{Ingest Student Data Extract}
 \usage{
-ingest_student_data_extract(path, ...)
+ingest_student_data_extract(path, clean_test_names = TRUE, ...)
 }
 \arguments{
 \item{path}{Character. The path to the file to be ingested.}
+
+\item{clean_test_names}{Logical. If \code{TRUE} (the default), test names will be cleaned using \code{\link[=clean_test_names]{clean_test_names()}}, which strips out the standard year and the " CAT" suffix where applicable.}
 
 \item{...}{Additional arguments passed to \code{\link[readr:read_delim]{readr::read_csv()}}}
 }

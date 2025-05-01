@@ -1,0 +1,52 @@
+test_that("recode_performance_levels works correctly", {
+  expect_equal(recode_performance_levels(1), "pass_advanced")
+  expect_equal(recode_performance_levels(2), "pass_proficient")
+  expect_equal(recode_performance_levels(3), "fail")
+  expect_equal(recode_performance_levels(4), "fail_basic")
+  expect_equal(recode_performance_levels(5), "fail_below_basic")
+  expect_equal(recode_performance_levels(8), "pass_advanced")
+  expect_equal(recode_performance_levels(9), "no_score")
+  expect_equal(recode_performance_levels(0), NA_character_)
+  expect_equal(recode_performance_levels(c(1, 2, 3, 4, 5, 8, 9, 0)), c("pass_advanced", "pass_proficient", "fail", "fail_basic", "fail_below_basic", "pass_advanced", "no_score", NA_character_))
+  expect_error(recode_performance_levels("a"))
+})
+
+test_that("recode_race_eth works correctly", {
+  expect_equal(recode_race_eth("Y", 1), "Hispanic")
+  expect_equal(recode_race_eth("N", 1), "American Indian/Alaska Native")
+  expect_equal(recode_race_eth("N", 2), "Asian")
+  expect_equal(recode_race_eth("N", 3), "Black")
+  expect_equal(recode_race_eth("N", 5), "White")
+  expect_equal(recode_race_eth("N", 6), "Hawaiian or Pacific Islander")
+  expect_equal(recode_race_eth("N", 7), "Two or More Races")
+  expect_equal(recode_race_eth("N", 8), "Two or More Races")
+  expect_equal(recode_race_eth("N", 0), NA_character_)
+  expect_equal(recode_race_eth(c("Y", "N", "N", "N", "N", "N", "N", "N", "N"), c(1, 1, 2, 3, 5, 6, 7, 8, 0)), c("Hispanic", "American Indian/Alaska Native", "Asian", "Black", "White", "Hawaiian or Pacific Islander", "Two or More Races", "Two or More Races", NA_character_))
+  expect_error(recode_race_eth(1, 1))
+  expect_error(recode_race_eth("N", "a"))
+})
+
+test_that("recode_sped_status works correctly", {
+  expect_equal(recode_sped_status(NA_real_), "Not_SPED")
+  expect_equal(recode_sped_status(15), "Not_SPED")
+  expect_equal(recode_sped_status(1), "SPED")
+  expect_equal(recode_sped_status(c(NA_real_, 15, 1, 2)), c("Not_SPED", "Not_SPED", "SPED", "SPED"))
+  expect_error(recode_sped_status("a"))
+})
+
+test_that("recode_el_status works correctly", {
+  expect_equal(recode_el_status(NA_real_), "Not_EL")
+  expect_equal(recode_el_status(1), "EL")
+  expect_equal(recode_el_status(c(NA_real_, 1, 2)), c("Not_EL", "EL", "EL"))
+  expect_error(recode_el_status("a"))
+})
+
+test_that("recode_demographics works correctly", {
+  df <- data.frame(disability_status = c(NA_real_, 15, 1), el_overall_proficiency_level = c(NA_real_, 1, 2), race = c(1, 2, 3), ethnicity = c("Y", "N", "N"))
+  result <- recode_demographics(df)
+  expect_equal(result$disability_status, c("Not_SPED", "Not_SPED", "SPED"))
+  expect_equal(result$el_overall_proficiency_level, c("Not_EL", "EL", "EL"))
+  expect_equal(result$race, c("Hispanic", "Asian", "Black"))
+  expect_error(recode_demographics(1))
+  expect_error(recode_demographics(df, sped_input_var = 1))
+})

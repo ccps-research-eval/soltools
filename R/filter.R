@@ -30,6 +30,27 @@ filter_test_performance <- function(x, type = "best") {
     }
 }
 
+#' Drop Int Read Write Tests
+#'
+#' @description Filter a student data extract to remove integrated reading and writing (IRW) tests. This function assumes that test names are defined in a column named "test_name."
+#'
+#' @param x A dataframe, ideally one created by [ingest_student_data_extract()]
+#'
+#' @return a dataframe with IRW tests removed
+#'
+#' @export
+#'
+#' @examples \dontrun{
+#' df_no_irw <- drop_irw(my_data)
+#' }
+drop_irw <- function(x) {
+    stopifnot(
+        "`x` must be a data frame" = is.data.frame(x),
+        "`test_name` must be a character vector" = is.character(x$test_name)
+    )
+    ret <- dplyr::filter(x, !grepl("Int Read Write", test_name))
+}
+
 # utility functions ------------------------
 
 filter_best_scores <- function(x) {

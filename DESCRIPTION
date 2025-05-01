@@ -1,6 +1,6 @@
 Package: soltools
 Title: Tools for Working with Virginia SOL Data
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person("Eric", "Ekholm", , "eric.ekholm@gmail.com", role = c("aut", "cre"))
 Description: A consistent set of tools for ingesting, cleaning, and analyzing data in Virginia SOL extracts

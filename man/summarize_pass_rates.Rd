@@ -18,7 +18,7 @@ summarize_pass_rates(
 
 \item{drop_parent_requested}{Logical. If \code{TRUE} (the default), drop any tests that were parent requested.}
 
-\item{drop_failing_retests}{Logical. If \code{TRUE} (the default), exclude failing retests.}
+\item{drop_failing_retests}{Logical. If \code{TRUE} (the default), exclude failing retests. See \code{\link[=drop_failing_retests]{drop_failing_retests()}} for details.}
 }
 \value{
 A summarized dataframe with pass rates for each group

@@ -19,7 +19,7 @@ summarize_performance_levels(
 
 \item{drop_parent_requested}{Logical. If \code{TRUE} (the default), exclude tests marked as parent-requested.}
 
-\item{drop_failing_retests}{Logical. If \code{TRUE} (the default), exclude failing retests.}
+\item{drop_failing_retests}{Logical. If \code{TRUE} (the default), exclude failing retests. See \code{\link[=drop_failing_retests]{drop_failing_retests()}} for details.}
 
 \item{convert_performance_levels}{Logical. If \code{TRUE} (the default), convert numeric performance level codes to text labels using \code{\link[=recode_performance_levels]{recode_performance_levels()}}.}
 }

@@ -43,3 +43,25 @@ test_that("drop_irw works", {
   expect_equal(nrow(drop_irw(df)), 2)
   expect_true(!"Int Read Write" %in% drop_irw(df)$test_name)
 })
+
+# testing drop_failing_retests func
+test_that("drop_failing_retests works", {
+  df <- data.frame(
+    state_testing_identifier_sti = rep(1:3, each = 2),
+    test_name = rep(c("Math 8", "Reading 8"), 3),
+    performance_level = c(1, 3, 2, 4, 5, 1),
+    retest = c(NA_character_, "Y", NA_character_, "Y", NA_character_, "Y")
+  )
+
+  expect_identical(
+    drop_failing_retests(df),
+    df[c(1, 3, 5, 6), ]
+  )
+})
+
+test_that("drop_failing_retests errors if retest col is missing or malformed", {
+  df <- create_pass_rate_test_df()
+
+  expect_error(drop_failing_retests(df))
+  expect_error(drop_failing_retests(dplyr::select(df, -retest)))
+})

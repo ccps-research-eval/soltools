@@ -8,6 +8,7 @@ summarize_performance_levels(
   x,
   group_vars = NULL,
   drop_parent_requested = TRUE,
+  drop_failing_retests = TRUE,
   convert_performance_levels = TRUE
 )
 }
@@ -17,6 +18,8 @@ summarize_performance_levels(
 \item{group_vars}{NULL or a character vector specifying the column names to group the data by (e.g., "school_name", "test_name"). If \code{NULL} (the default), no grouping will occur.}
 
 \item{drop_parent_requested}{Logical. If \code{TRUE} (the default), exclude tests marked as parent-requested.}
+
+\item{drop_failing_retests}{Logical. If \code{TRUE} (the default), exclude failing retests.}
 
 \item{convert_performance_levels}{Logical. If \code{TRUE} (the default), convert numeric performance level codes to text labels using \code{\link[=recode_performance_levels]{recode_performance_levels()}}.}
 }

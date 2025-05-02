@@ -39,12 +39,12 @@ extract_cleaned <- my_extract |>
 
 ```
 
-With this cleaned dataframe, we might want to calculate pass rates. We can do this using the `summarize_pass_rate()` function, which also allows us to specify different grouping variables.
+With this cleaned dataframe, we might want to calculate pass rates. We can do this using the `summarize_pass_rates()` function, which also allows us to specify different grouping variables.
 
 ```r
-test_pass_rates <- summarize_pass_rate(extract_cleaned, group_vars = "test_name") # get the pass rate for each test
+test_pass_rates <- summarize_pass_rates(extract_cleaned, group_vars = "test_name") # get the pass rate for each test
 
-sch_test_pass_rates <- summarize_pass_rate(extract_cleaned, group_vars = c("school_name", "test_name")) # get the pass rate for each test by school
+sch_test_pass_rates <- summarize_pass_rates(extract_cleaned, group_vars = c("school_name", "test_name")) # get the pass rate for each test by school
 
 ```
 

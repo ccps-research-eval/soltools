@@ -51,6 +51,29 @@ drop_irw <- function(x) {
     ret <- dplyr::filter(x, !grepl("Int Read Write", test_name))
 }
 
+#' Drop Failing Retests
+#'
+#' @description Filter a student data extract to remove failing retests in alignment with VDOE's steps to calculate annual pass rates. This function assumes that retest status is defined in a column named "retest," where "Y" indicates a retest. It also assumes that performance levels are defined in a column named "performance_level."
+#'
+#' @param x A dataframe, ideally one created by [ingest_student_data_extract()]
+#'
+#' @return a dataframe with failing retests removed
+#'
+#' @export
+#'
+#' @examples \dontrun{
+#' df_no_fail_retest <- drop_failing_retests(my_data)
+#' }
+drop_failing_retests <- function(x) {
+    stopifnot(
+        "`x` must be a data frame" = is.data.frame(x),
+        "`retest` column must be in the data frame" = "retest" %in% colnames(x),
+        "`retest` column should contain only 'Y' and NA_character_" = length(setdiff(c("Y", NA_character_), unique(x$retest))) == 0
+    )
+
+    x[!(!is.na(x$retest) & x$performance_level %in% c(3, 4, 5)), ]
+}
+
 # utility functions ------------------------
 
 filter_best_scores <- function(x) {

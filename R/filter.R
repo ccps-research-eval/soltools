@@ -43,6 +43,7 @@ filter_test_performance <- function(x, type = "best") {
 #' @examples \dontrun{
 #' df_no_irw <- drop_irw(my_data)
 #' }
+#' @md
 drop_irw <- function(x) {
     stopifnot(
         "`x` must be a data frame" = is.data.frame(x),
@@ -64,15 +65,73 @@ drop_irw <- function(x) {
 #' @examples \dontrun{
 #' df_no_fail_retest <- drop_failing_retests(my_data)
 #' }
+#' @md
 drop_failing_retests <- function(x) {
     stopifnot(
         "`x` must be a data frame" = is.data.frame(x),
         "`retest` column must be in the data frame" = "retest" %in% colnames(x),
-        "`retest` column should contain only 'Y' and NA_character_" = length(setdiff(c("Y", NA_character_), unique(x$retest))) == 0
+        "`retest` column should contain only 'Y' and NA_character_" = length(setdiff(unique(x$retest), c("Y", NA_character_))) == 0
     )
 
     x[!(!is.na(x$retest) & x$performance_level %in% c(3, 4, 5)), ]
 }
+
+
+#' Filter Exclusions
+#'
+#' @description This function filters a student data extract to exclude certain records based on several criteria,
+#'   aligning with VDOE's guidelines for calculating annual pass rates.  Specifically, it removes records where:
+#'   \itemize{
+#'     \item The grade is "TT" (non-enrolled student).
+#'     \item The performance level is not in the set of allowed levels (1, 2, 3, 4, 5, 8).
+#'     \item The student is a recently arrived English learner (EL) taking a reading test and has a non-passing performance level (3, 4, 5).
+#'     \item The test was parent-requested (if `drop_parent_requested` is `TRUE`).
+#'     \item The test is a failing retest (if `drop_failing_retests` is `TRUE`).
+#'   }
+#'
+#' @param x A data frame, ideally one created by [ingest_student_data_extract()], containing student test data.
+#' @param drop_parent_requested Logical. If `TRUE` (the default), exclude tests marked as parent-requested.
+#' @param drop_failing_retests Logical. If `TRUE` (the default), exclude failing retests. See [drop_failing_retests()] for details.
+#'
+#' @return A filtered data frame with the specified exclusions removed.
+#'
+#' @md
+filter_exclusions <- function(x, drop_parent_requested = TRUE, drop_failing_retests = TRUE) {
+    req_nms <- c("grade", "performance_level", "recently_arrived_el", "test_name", "parent_requested", "retest")
+
+    stopifnot(
+        "`x` must be a data frame" = is.data.frame(x),
+        "`drop_parent_requested` must be a logical" = is.logical(drop_parent_requested),
+        "`drop_failing_retests` must be a logical" = is.logical(drop_failing_retests),
+        "'grade', 'performance_level', 'recently_arrived_el', 'test_name', 'parent_requested', and 'retest' columns must be in `x`" = all(names(x) %in% req_nms)
+    )
+
+    allow_lvls <- c(1, 2, 3, 4, 5, 8)
+    non_pass_lvls <- c(3, 4, 5)
+
+    tmp <- x |>
+        dplyr::filter(
+            grade != "TT",
+            performance_level %in% allow_lvls,
+            !(!is.na(recently_arrived_el) & grepl("Read", test_name) & performance_level %in% non_pass_lvls)
+        )
+
+    tmp <- if (drop_parent_requested) {
+        tmp |>
+            dplyr::filter(is.na(parent_requested))
+    } else {
+        tmp
+    }
+
+    ret <- if (drop_failing_retests) {
+        drop_failing_retests(tmp)
+    } else {
+        tmp
+    }
+
+    return(ret)
+}
+
 
 # utility functions ------------------------
 

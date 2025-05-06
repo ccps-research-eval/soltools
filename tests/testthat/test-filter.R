@@ -65,3 +65,20 @@ test_that("drop_failing_retests errors if retest col is missing or malformed", {
   expect_error(drop_failing_retests(df))
   expect_error(drop_failing_retests(dplyr::select(df, -retest)))
 })
+
+
+test_that("filter_exclusions works as expected", {
+  # Create a sample data frame
+  y <- data.frame(
+    grade = c("10", "09", "11", "12"),
+    performance_level = c(1, 2, 6, 3),
+    recently_arrived_el = c(NA_character_, "Y", NA_character_, NA_character_),
+    test_name = c("Reading", "Math", "Reading", "Math"),
+    parent_requested = c(NA_character_, "Y", NA_character_, NA_character_),
+    retest = c(NA_character_, "Y", NA_character_, "Y")
+  )
+
+  filtered_df <- filter_exclusions(y)
+  expect_equal(nrow(filtered_df), 1)
+  expect_equal(filtered_df$grade, "10")
+})

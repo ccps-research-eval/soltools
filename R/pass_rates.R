@@ -123,30 +123,3 @@ summarize_performance_levels <- function(x, group_vars = NULL, drop_parent_reque
 
     return(ret)
 }
-
-# utilities ----------------
-filter_exclusions <- function(x, drop_parent_requested = TRUE, drop_failing_retests = TRUE) {
-    allow_lvls <- c(1, 2, 3, 4, 5, 8)
-
-    tmp <- x |>
-        dplyr::filter(
-            grade != "TT",
-            performance_level %in% allow_lvls,
-            is.na(recently_arrived_el)
-        )
-
-    tmp <- if (drop_parent_requested) {
-        tmp |>
-            dplyr::filter(is.na(parent_requested))
-    } else {
-        tmp
-    }
-
-    ret <- if (drop_failing_retests) {
-        drop_failing_retests(tmp)
-    } else {
-        tmp
-    }
-
-    return(ret)
-}

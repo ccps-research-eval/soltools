@@ -8,4 +8,5 @@ docs
 
 #data to exclude
 /data-raw/demo_data.csv
+/data-raw/demo_wrtg_data.csv
 /tests/testthat/fixtures/demo_data.csv

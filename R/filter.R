@@ -103,7 +103,7 @@ filter_exclusions <- function(x, drop_parent_requested = TRUE, drop_failing_rete
         "`x` must be a data frame" = is.data.frame(x),
         "`drop_parent_requested` must be a logical" = is.logical(drop_parent_requested),
         "`drop_failing_retests` must be a logical" = is.logical(drop_failing_retests),
-        "'grade', 'performance_level', 'recently_arrived_el', 'test_name', 'parent_requested', and 'retest' columns must be in `x`" = all(names(x) %in% req_nms)
+        "'grade', 'performance_level', 'recently_arrived_el', 'test_name', 'parent_requested', and 'retest' columns must be in `x`" = all(req_nms %in% names(x))
     )
 
     allow_lvls <- c(1, 2, 3, 4, 5, 8)

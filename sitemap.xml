@@ -1,0 +1,24 @@
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://ccps-research-eval.github.io/soltools/404.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/CHANGELOG.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/LICENSE-text.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/LICENSE.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/authors.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/index.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/clean_test_names.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/drop_failing_retests.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/drop_irw.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/filter_exclusions.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/filter_test_performance.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/index.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/ingest_student_data_extract.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/recode_demographics.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/recode_el_status.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/recode_performance_levels.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/recode_race_eth.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/recode_sped_status.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/standardize_writing_extract_names.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/summarize_pass_rates.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/summarize_performance_levels.html</loc></url>
+</urlset>
+

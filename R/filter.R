@@ -3,7 +3,7 @@
 #' @description Filter a student data extract to include only students' 'best' or 'first' SOL tests.
 #'
 #' @param x A dataframe, ideally one created by [ingest_student_data_extract()]
-#' @param type Character. Either "best" (the default) or "first." "best" will retain only each student's best score on a given test, whereas "first" will retain each student's chronological first score on a given test.
+#' @param type Character. Either "best" (the default) or "first." "best" will retain only each student's best score on a given test, whereas "first" will retain each student's chronological first score on a given test. *Note that only the "best" option is currently supported for writing tests.*
 #'
 #' @return a dataframe with 1 row per student per test
 #'
@@ -103,7 +103,7 @@ filter_exclusions <- function(x, drop_parent_requested = TRUE, drop_failing_rete
         "`x` must be a data frame" = is.data.frame(x),
         "`drop_parent_requested` must be a logical" = is.logical(drop_parent_requested),
         "`drop_failing_retests` must be a logical" = is.logical(drop_failing_retests),
-        "'grade', 'performance_level', 'recently_arrived_el', 'test_name', 'parent_requested', and 'retest' columns must be in `x`" = all(names(x) %in% req_nms)
+        "'grade', 'performance_level', 'recently_arrived_el', 'test_name', 'parent_requested', and 'retest' columns must be in `x`" = all(req_nms %in% names(x))
     )
 
     allow_lvls <- c(1, 2, 3, 4, 5, 8)

@@ -47,7 +47,8 @@ summarize_pass_rates <- function(x, group_vars = NULL, drop_parent_requested = T
             n_pass = sum(pass, na.rm = TRUE),
             n_total = dplyr::n(),
             pass_rate = n_pass / n_total
-        )
+        ) |>
+        dplyr::ungroup()
 
     return(ret)
 }

@@ -9,7 +9,7 @@ filter_test_performance(x, type = "best")
 \arguments{
 \item{x}{A dataframe, ideally one created by \code{\link[=ingest_student_data_extract]{ingest_student_data_extract()}}}
 
-\item{type}{Character. Either "best" (the default) or "first." "best" will retain only each student's best score on a given test, whereas "first" will retain each student's chronological first score on a given test.}
+\item{type}{Character. Either "best" (the default) or "first." "best" will retain only each student's best score on a given test, whereas "first" will retain each student's chronological first score on a given test. \emph{Note that only the "best" option is currently supported for writing tests.}}
 }
 \value{
 a dataframe with 1 row per student per test

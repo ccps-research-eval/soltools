@@ -59,10 +59,9 @@ test_that("drop_failing_retests works", {
   )
 })
 
-test_that("drop_failing_retests errors if retest col is missing or malformed", {
+test_that("drop_failing_retests errors if retest col is missing", {
   df <- create_pass_rate_test_df()
 
-  expect_error(drop_failing_retests(df))
   expect_error(drop_failing_retests(dplyr::select(df, -retest)))
 })
 

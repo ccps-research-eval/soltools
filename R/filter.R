@@ -3,7 +3,7 @@
 #' @description Filter a student data extract to include only students' 'best' or 'first' SOL tests.
 #'
 #' @param x A dataframe, ideally one created by [ingest_student_data_extract()]
-#' @param type Character. Either "best" (the default) or "first." "best" will retain only each student's best score on a given test, whereas "first" will retain each student's chronological first score on a given test.
+#' @param type Character. Either "best" (the default) or "first." "best" will retain only each student's best score on a given test, whereas "first" will retain each student's chronological first score on a given test. *Note that only the "best" option is currently supported for writing tests.*
 #'
 #' @return a dataframe with 1 row per student per test
 #'

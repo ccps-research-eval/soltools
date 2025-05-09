@@ -29,7 +29,7 @@ clean_test_names <- function(x) {
 }
 
 
-#' Standardize Writing Test Names
+#' Standardize Writing Extract Names
 #'
 #' @description Standardizes some column names in a writing test data frame to align with the structure of non-writing test data frames.
 #'   Specifically, it renames `performance_level_total_mc_tei_sp` to `performance_level` and
@@ -46,10 +46,10 @@ clean_test_names <- function(x) {
 #' @examples
 #' \dontrun{
 #' writing_data <- ingest_student_data_extract("path/to/data.csv", writing_extract = TRUE)
-#' standardized_data <- standardize_writing_test_names(writing_data)
+#' standardized_data <- standardize_writing_extract_names(writing_data)
 #' }
 #' @md
-standardize_writing_test_names <- function(x) {
+standardize_writing_extract_names <- function(x) {
     req_nms <- c("performance_level_total_mc_tei_sp", "scaled_score_writing_total")
 
     stopifnot(

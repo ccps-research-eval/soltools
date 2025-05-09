@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.3
+
+- Add support for processing writing test extracts
+
 ## v0.1.2
 
 - Fix issue with checks in `filter_exclusions()`

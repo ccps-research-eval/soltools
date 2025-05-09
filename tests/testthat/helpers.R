@@ -13,6 +13,7 @@ create_pass_rate_test_df <- function() {
         grade = rep(c("08", "08", "09"), 3),
         performance_level = c(1, 2, 3, 4, 5, 8, 9, 1, 2),
         recently_arrived_el = rep(NA_character_, 9),
-        parent_requested = c(NA_character_, NA_character_, "Y", NA_character_, NA_character_, NA_character_, NA_character_, "Y", NA_character_)
+        parent_requested = c(NA_character_, NA_character_, "Y", NA_character_, NA_character_, NA_character_, NA_character_, "Y", NA_character_),
+        retest = NA_character_
     )
 }

@@ -135,11 +135,11 @@ filter_exclusions <- function(x, drop_parent_requested = TRUE, drop_failing_rete
 
 # utility functions ------------------------
 
-filter_best_scores <- function(x) {
+filter_best_scores <- function(x, with_ties = FALSE) {
     # TODO -- avoid hard-coding column names?
     tmp <- dplyr::group_by(x, state_testing_identifier_sti, test_name)
 
-    ret <- dplyr::slice_max(tmp, test_scaled_score)
+    ret <- dplyr::slice_max(tmp, test_scaled_score, with_ties = with_ties, n = 1)
 
     ret <- dplyr::ungroup(ret)
 

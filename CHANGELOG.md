@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.4
+
+- Set `filter_test_performance("best")` to always return 1 test per student, even in the case of multiple identical test scores
+
 ## v0.1.3
 
 - Add support for processing writing test extracts

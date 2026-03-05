@@ -7,7 +7,7 @@
 recode_el_status(el_proficiency_lvl_var)
 }
 \arguments{
-\item{el_proficiency_lvl_var}{A numeric vector representing EL proficiency level. \code{NA} values typically indicate students who are currently classified as EL.}
+\item{el_proficiency_lvl_var}{A numeric vector representing EL proficiency level. \code{NA} values typically indicate students who are  not currently classified as EL.}
 }
 \value{
 A character vector with "EL" or "Not_EL" values.

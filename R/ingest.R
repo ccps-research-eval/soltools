@@ -49,3 +49,26 @@ ingest_student_data_extract <- function(path, clean_test_names = TRUE, writing_e
 
     return(ret)
 }
+
+
+#' Ingest a Writing Student Data Extract
+#'
+#' @description This is a wrapper around [ingest_student_data_extract()] with `writing_extract` set to `TRUE`.
+#'   It ingests and provides light cleaning for a student data extract for SOL writing tests.
+#'   See [ingest_student_data_extract()] for more details on arguments and functionality.
+#'
+#' @param path Character. The path to the file to be ingested.
+#' @param clean_test_names Logical. If `TRUE` (the default), test names will be cleaned using [clean_test_names()].
+#' @param ... Additional arguments passed to [readr::read_csv()].
+#'
+#' @return A dataframe containing the ingested data.
+#' @export
+#'
+#' @examples \dontrun{
+#' p <- "path/to/my/writing_data.csv"
+#' df <- ingest_writing_extract(p)
+#' }
+#' @md
+ingest_writing_extract <- function(path, clean_test_names = TRUE, ...) {
+    ingest_student_data_extract(path, clean_test_names = clean_test_names, writing_extract = TRUE, ...)
+}

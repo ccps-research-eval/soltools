@@ -10,20 +10,21 @@
 
 soltools provides functionality for ingesting and working with Virginia Standard of Learning (SOL) data extracts from Pearson.
 
-It currently only contains functions for working with the non-writing student data extracts, but functionality for working with other extracts, such as student detail by question (SDBQ) files, will be coming soon.
+It currently only contains functions for working with the student data extracts (both the non-writing and writing extract), but functionality for working with other files, such as student detail by question (SDBQ) files, is on the roadmap.
 
 ## Installation
 
 You can install the development version of soltools from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("pak")
-pak::pak("ccps-research-eval/soltools")
+# install the devtools package if you don't have it already
+# install.packages("devtools")
+devtools::install_github("ccps-research-eval/soltools")
 ```
 
 ## Usage
 
-The primary functionality of `soltools` in the current version revolves around ingesting student data extracts and calculating summary statistics.
+Currently, `soltools` is intended to ingest student data extracts into R from Pearson, lightly clean the data, and calculate some summary statistics (e.g. pass rate). These statistics can be calculated by grouping variables, where appropriate. 
 
 To ingest a student data extract from Pearson, you can simply run:
 ```r
@@ -62,22 +63,21 @@ sch_test_performance_by_level <- summarize_performance_levels(extract_cleaned, g
 
 ### Writing Extracts
 
-Working with writing extracts only requires a few small changes. To read in a writing student data extract, you can simply set `writing_extract = TRUE` when calling `ingest_student_data_extract()`.
-
+Working with writing extracts only requires a few small changes. To read in a writing student data extract, you can use the `ingest_writing_extract()` function. 
 ```r
-wrtg_extract <- ingest_student_data_extract("path/to/my/writing_extract.csv", writing_extract = TRUE)
+wrtg_extract <- ingest_writing_extract("path/to/my/writing_extract.csv")
 ```
 
 You should then call the `standardize_writing_extract_names()` function to standardize the column names in the writing extract and ensure they're the same as those in the non-writing extracts.
 
 ```r
-wrtg_extract <- standardize_writing_extract_names(wrtg_extract)
+wrtg_extract_standard <- standardize_writing_extract_names(wrtg_extract)
 ```
 
 From this point, the process for summarizing pass rates of performance levels will be the same:
 
 ```r
-wrtg_test_pass_rates <- wrtg_extract |>
+wrtg_test_pass_rates <- wrtg_extract_stand |>
   filter_test_performance("best") |> #note that the "first" test option does not currently work for writing extracts
   recode_demographics() |>
   summarize_pass_rates(group_vars = c("school_name", "test_name"))

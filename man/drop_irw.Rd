@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter.R
 \name{drop_irw}
 \alias{drop_irw}
-\title{Drop Int Read Write Tests}
+\title{Drop IRW Tests}
 \usage{
 drop_irw(x)
 }

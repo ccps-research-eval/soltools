@@ -125,7 +125,7 @@ recode_sped_status <- function(sped_var) {
 #'
 #' @description Recodes a variable representing English Learner (EL) proficiency level into text categories indicating EL status.
 #'
-#' @param el_proficiency_lvl_var A numeric vector representing EL proficiency level. `NA` values typically indicate students who are currently classified as EL.
+#' @param el_proficiency_lvl_var A numeric vector representing EL proficiency level. `NA` values typically indicate students who are  not currently classified as EL.
 #'
 #' @return A character vector with "EL" or "Not_EL" values.
 #'
@@ -204,14 +204,15 @@ recode_el_status <- function(el_proficiency_lvl_var) {
 #' }
 #' @md
 recode_demographics <- function(
-    x,
-    sped_input_var = "disability_status",
-    sped_output_var = NULL,
-    el_input_var = "el_overall_proficiency_level",
-    el_output_var = NULL,
-    race_input_var = "race",
-    ethnicity_input_var = "ethnicity",
-    race_output_var = NULL) {
+  x,
+  sped_input_var = "disability_status",
+  sped_output_var = NULL,
+  el_input_var = "el_overall_proficiency_level",
+  el_output_var = NULL,
+  race_input_var = "race",
+  ethnicity_input_var = "ethnicity",
+  race_output_var = NULL
+) {
     stopifnot(
         is.data.frame(x),
         sapply(c(sped_input_var, el_input_var, race_input_var, ethnicity_input_var), is.character),

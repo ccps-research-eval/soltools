@@ -1,6 +1,8 @@
 #' Filter Test Performance
 #'
-#' @description Filter a student data extract to include only students' 'best' or 'first' SOL tests.
+#' @description Filter a student data extract to include only students' 'best' or 'first' SOL score on a given test.
+#'
+#' Note that this is dependent on the test window as well. If the dataframe passed to the function only contains results from a single testing window, the function will retain students' first or best test in that window. If the dataframe includes results from multiple testing windows, then the function will retain the first or best test across multiple windows.
 #'
 #' @param x A dataframe, ideally one created by [ingest_student_data_extract()]
 #' @param type Character. Either "best" (the default) or "first." "best" will retain only each student's best score on a given test, whereas "first" will retain each student's chronological first score on a given test. *Note that only the "best" option is currently supported for writing tests.*
@@ -30,7 +32,7 @@ filter_test_performance <- function(x, type = "best") {
     }
 }
 
-#' Drop Int Read Write Tests
+#' Drop IRW Tests
 #'
 #' @description Filter a student data extract to remove integrated reading and writing (IRW) tests. This function assumes that test names are defined in a column named "test_name."
 #'
@@ -136,7 +138,6 @@ filter_exclusions <- function(x, drop_parent_requested = TRUE, drop_failing_rete
 # utility functions ------------------------
 
 filter_best_scores <- function(x, with_ties = FALSE) {
-    # TODO -- avoid hard-coding column names?
     tmp <- dplyr::group_by(x, state_testing_identifier_sti, test_name)
 
     ret <- dplyr::slice_max(tmp, test_scaled_score, with_ties = with_ties, n = 1)

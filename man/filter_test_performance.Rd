@@ -15,7 +15,9 @@ filter_test_performance(x, type = "best")
 a dataframe with 1 row per student per test
 }
 \description{
-Filter a student data extract to include only students' 'best' or 'first' SOL tests.
+Filter a student data extract to include only students' 'best' or 'first' SOL score on a given test.
+
+Note that this is dependent on the test window as well. If the dataframe passed to the function only contains results from a single testing window, the function will retain students' first or best test in that window. If the dataframe includes results from multiple testing windows, then the function will retain the first or best test across multiple windows.
 }
 \examples{
 \dontrun{

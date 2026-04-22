@@ -65,6 +65,63 @@ test_that("drop_failing_retests errors if retest col is missing", {
   expect_error(drop_failing_retests(dplyr::select(df, -retest)))
 })
 
+# testing drop_hs_failing_retests func
+test_that("drop_hs_failing_retests works as expected", {
+  df <- data.frame(
+    school_name = c(
+      "Test HS", # HS, failing retest -> drop
+      "Test HS", # HS, passing retest -> keep
+      "Test HS", # HS, failing non-retest -> keep
+      "CAREER Center", # Career, failing retest -> drop
+      "Middle School", # Not HS, failing retest -> keep
+      "Elem School" # Not HS, passing retest -> keep
+    ),
+    retest = c("Y", "Y", NA_character_, "Y", "Y", "Y"),
+    performance_level = c(3, 1, 4, 5, 3, 2),
+    stringsAsFactors = FALSE
+  )
+
+  # Should drop rows 1 and 4
+  result <- drop_hs_failing_retests(df)
+  expect_equal(nrow(result), 4)
+  expect_equal(result, df[c(2, 3, 5, 6), ], ignore_attr = TRUE)
+})
+
+test_that("drop_hs_failing_retests works with custom arguments", {
+  df <- data.frame(
+    school = c("ACADEMY", "Middle"),
+    retake = c("Y", "Y"),
+    perf_lvl = c(4, 3),
+    stringsAsFactors = FALSE
+  )
+
+  # Should drop row 1
+  result <- drop_hs_failing_retests(
+    df,
+    hs_pattern = "ACADEMY",
+    retest_col = retake,
+    performance_lvl_col = perf_lvl,
+    school_col = school
+  )
+
+  expect_equal(nrow(result), 1)
+  expect_equal(result$school, "Middle")
+})
+
+test_that("drop_hs_failing_retests throws expected errors", {
+  df <- data.frame(school_name = "Test HS", retest = "Y", performance_level = 3)
+
+  expect_error(drop_hs_failing_retests(list()), "`x` must be a dataframe")
+  expect_error(drop_hs_failing_retests(df, hs_pattern = c("a", "b")), "`hs_pattern` must be a length-1 character vector")
+  expect_error(
+    drop_hs_failing_retests(dplyr::select(df, -retest)),
+    "`retest` must be a column in `x`"
+  )
+  expect_error(
+    drop_hs_failing_retests(df, school_col = missing_col),
+    "`missing_col` must be a column in `x`"
+  )
+})
 
 test_that("filter_exclusions works as expected", {
   # Create a sample data frame

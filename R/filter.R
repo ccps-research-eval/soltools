@@ -78,6 +78,43 @@ drop_failing_retests <- function(x) {
     x[!(!is.na(x$retest) & x$performance_level %in% c(3, 4, 5)), ]
 }
 
+#' Drop Failing High School Retests
+#'
+#' @description Filter a student data extract to remove failing retests for high school tests. This is a more specific version of [drop_failing_retests()] that targets only high schools, identified by a pattern in the school name.
+#'
+#' @param x A dataframe, ideally one created by [ingest_student_data_extract()].
+#' @param hs_pattern A character string containing a regular expression used to identify high schools from the school name column. The default is `"HS$|CAREER"`.
+#' @param retest_col The unquoted column name for the retest indicator. Defaults to `retest`.
+#' @param performance_lvl_col The unquoted column name for the performance level. Defaults to `performance_level`.
+#' @param school_col The unquoted column name for the school name. Defaults to `school_name`.
+#'
+#' @return A dataframe with failing high school retests removed.
+#' @export
+#'
+#' @examples \dontrun{
+#' my_data <- ingest_student_data_extract("path/to/my/data.csv")
+#' # Remove failing retests from schools with "HS" or "CAREER" in their name
+#' df_no_hs_fail_retest <- drop_hs_failing_retests(my_data)
+#' }
+#' @md
+drop_hs_failing_retests <- function(x, hs_pattern = "HS$|CAREER", retest_col = retest, performance_lvl_col = performance_level, school_col = school_name) {
+    stopifnot(
+        "`x` must be a dataframe" = is.data.frame(x),
+        "`hs_pattern` must be a length-1 character vector" = (is.character(hs_pattern) && length(hs_pattern) == 1)
+    )
+
+    check_unquoted_col_name(x, {{ retest_col }})
+    check_unquoted_col_name(x, {{ performance_lvl_col }})
+    check_unquoted_col_name(x, {{ school_col }})
+
+    ret <- x |>
+        dplyr::filter(
+            !(!is.na({{ retest_col }}) & stringr::str_detect({{ school_col }}, hs_pattern) & {{ performance_lvl_col }} %in% c(3, 4, 5))
+        )
+
+    return(ret)
+}
+
 
 #' Filter Exclusions
 #'

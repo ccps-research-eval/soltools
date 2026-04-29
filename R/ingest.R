@@ -35,7 +35,7 @@ ingest_student_data_extract <- function(path, clean_test_names = TRUE, writing_e
     num_vars <- if (writing_extract) {
         c("scaled_score_writing_total", "race", "performance_level_total_mc_tei_sp", "disability_status", "el_overall_proficiency_level")
     } else {
-        c("test_scaled_score", "race", "performance_level", "disability_status", "el_overall_proficiency_level")
+        c("test_scaled_score", "race", "performance_level", "disability_status", "el_overall_proficiency_level", "testing_status")
     }
 
     tmp <- dplyr::mutate(tmp, dplyr::across(dplyr::all_of(num_vars), as.numeric))

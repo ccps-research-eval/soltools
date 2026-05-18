@@ -132,6 +132,8 @@ drop_hs_failing_retests <- function(x, hs_pattern = "HS$|CAREER", retest_col = r
 #' @param drop_parent_requested Logical. If `TRUE` (the default), exclude tests marked as parent-requested.
 #' @param drop_failing_retests Logical. If `TRUE` (the default), exclude failing retests. See [drop_failing_retests()] for details.
 #'
+#' @export
+#'
 #' @return A filtered data frame with the specified exclusions removed.
 #'
 #' @md

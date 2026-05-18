@@ -2,10 +2,14 @@
 
 ## All functions
 
+- [`check_unquoted_col_name()`](https://ccps-research-eval.github.io/soltools/reference/check_unquoted_col_name.md)
+  : Check that an unquoted column name exists in a data frame
 - [`clean_test_names()`](https://ccps-research-eval.github.io/soltools/reference/clean_test_names.md)
   : Clean Test Names
 - [`drop_failing_retests()`](https://ccps-research-eval.github.io/soltools/reference/drop_failing_retests.md)
   : Drop Failing Retests
+- [`drop_hs_failing_retests()`](https://ccps-research-eval.github.io/soltools/reference/drop_hs_failing_retests.md)
+  : Drop Failing High School Retests
 - [`drop_irw()`](https://ccps-research-eval.github.io/soltools/reference/drop_irw.md)
   : Drop IRW Tests
 - [`filter_exclusions()`](https://ccps-research-eval.github.io/soltools/reference/filter_exclusions.md)

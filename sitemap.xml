@@ -5,8 +5,10 @@
 <url><loc>https://ccps-research-eval.github.io/soltools/LICENSE.html</loc></url>
 <url><loc>https://ccps-research-eval.github.io/soltools/authors.html</loc></url>
 <url><loc>https://ccps-research-eval.github.io/soltools/index.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/check_unquoted_col_name.html</loc></url>
 <url><loc>https://ccps-research-eval.github.io/soltools/reference/clean_test_names.html</loc></url>
 <url><loc>https://ccps-research-eval.github.io/soltools/reference/drop_failing_retests.html</loc></url>
+<url><loc>https://ccps-research-eval.github.io/soltools/reference/drop_hs_failing_retests.html</loc></url>
 <url><loc>https://ccps-research-eval.github.io/soltools/reference/drop_irw.html</loc></url>
 <url><loc>https://ccps-research-eval.github.io/soltools/reference/filter_exclusions.html</loc></url>
 <url><loc>https://ccps-research-eval.github.io/soltools/reference/filter_test_performance.html</loc></url>
